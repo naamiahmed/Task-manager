@@ -30,22 +30,38 @@ class HomeScreen extends StatelessWidget {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: GlassmorphismCard(
-                    child: ListTile(
-                      title: Text(task.title, style: TextStyle(color: Colors.white)),
-                      subtitle: Text(task.description, style: TextStyle(color: Colors.white70)),
-                      trailing: IconButton(
-                        icon: Icon(Icons.delete, color: Colors.white),
-                        onPressed: () => _showDeleteConfirmationDialog(context, viewModel, task.id),
-                      ),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => TaskDetailScreen(task: task),
-                          ),
-                        );
-                      },
-                    ),
+                    child: // Replace the existing ListTile in HomeScreen with this:
+ListTile(
+  title: Text(
+    task.title,
+    style: TextStyle(
+      color: Colors.white,
+      fontWeight: FontWeight.bold,
+      fontSize: 18,
+    ),
+  ),
+  subtitle: Text(
+    task.description,
+    style: TextStyle(
+      color: Colors.white70,
+      fontSize: 14,
+    ),
+    maxLines: 1,
+    overflow: TextOverflow.ellipsis,
+  ),
+  trailing: IconButton(
+    icon: Icon(Icons.delete, color: Colors.white),
+    onPressed: () => _showDeleteConfirmationDialog(context, viewModel, task.id),
+  ),
+  onTap: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => TaskDetailScreen(task: task),
+      ),
+    );
+  },
+),
                   ),
                 );
               },
