@@ -19,7 +19,6 @@ class HomeScreen extends StatelessWidget {
             colors: [Colors.black87, Colors.grey.shade800],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-
           ),
         ),
         child: Consumer<TaskViewModel>(
@@ -39,6 +38,10 @@ class HomeScreen extends StatelessWidget {
                         },
                         activeColor: Colors.white,
                         checkColor: Colors.black87,
+                        side: BorderSide(color: Colors.white, width: 1.5),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(4),
+                        ),
                       ),
                       title: Text(
                         task.title,
@@ -61,7 +64,7 @@ class HomeScreen extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                       ),
                       trailing: IconButton(
-                        icon: Icon(Icons.delete, color: Colors.white70),
+                        icon: Icon(Icons.delete, color: Colors.red.shade400),
                         onPressed: () => _showDeleteConfirmationDialog(context, viewModel, task.id),
                       ),
                       onTap: () {
@@ -103,28 +106,58 @@ class HomeScreen extends StatelessWidget {
           backgroundColor: Colors.grey.shade900,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
-            side: BorderSide(color: Colors.white24),
+            side: BorderSide(color: Colors.red.shade400, width: 1.5),
           ),
-          title: Text(
-            'Delete Task',
-            style: TextStyle(color: Colors.white),
+          title: Row(
+            children: [
+              Icon(Icons.warning_amber_rounded, color: Colors.red.shade400, size: 28),
+              SizedBox(width: 10),
+              Text(
+                'Delete Task',
+                style: TextStyle(
+                  color: Colors.red.shade400,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
           ),
           content: Text(
             'Are you sure you want to delete this task?',
-            style: TextStyle(color: Colors.grey.shade300),
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+            ),
           ),
           actions: <Widget>[
             TextButton(
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.grey.shade800,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
               child: Text(
                 'Cancel',
-                style: TextStyle(color: Colors.white70),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
               onPressed: () => Navigator.of(context).pop(),
             ),
             TextButton(
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.red.shade400,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
               child: Text(
                 'Delete',
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               onPressed: () {
                 viewModel.deleteTask(taskId);
