@@ -1,3 +1,4 @@
+// Updated IntroPage.dart
 import 'package:flutter/material.dart';
 import './pages/views/home_screen.dart';
 
@@ -8,7 +9,7 @@ class IntroPage extends StatelessWidget {
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [Colors.deepPurple, Colors.purpleAccent],
+            colors: [Colors.black87, Colors.grey.shade800],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -26,51 +27,33 @@ class IntroPage extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 20),
-              Semantics(
-                label: 'Task Manager Title',
-                child: Text(
-                  'Task Manager',
-                  style: TextStyle(
-                    fontSize: 32,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-              SizedBox(height: 20),
-              Semantics(
-                label: 'Manage your tasks efficiently',
-                child: Text(
-                  'Manage your tasks efficiently',
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.white70,
-                  ),
+              Text(
+                'Task Manager',
+                style: TextStyle(
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
                 ),
               ),
               SizedBox(height: 40),
-              Semantics(
-                label: 'Get Started Button',
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => HomeScreen()),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.deepPurple, backgroundColor: Colors.white,
-                    padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => HomeScreen()),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.black87,
+                  backgroundColor: Colors.white,
+                  padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
                   ),
-                  child: Text(
-                    'Get Started',
-                    style: TextStyle(
-                      fontSize: 18,
-                    ),
-                  ),
+                ),
+                child: Text(
+                  'Get Started',
+                  style: TextStyle(fontSize: 18),
                 ),
               ),
             ],

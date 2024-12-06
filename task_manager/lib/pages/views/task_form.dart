@@ -129,7 +129,7 @@ class _TaskFormState extends State<TaskForm> {
                       onPressed: () => _selectDate(context),
                       child: Text('Select date'),
                       style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.deepPurple,
+                        foregroundColor: const Color.fromARGB(255, 0, 0, 0),
                         backgroundColor: Colors.white,
                       ),
                     ),
