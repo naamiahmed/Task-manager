@@ -51,4 +51,15 @@ class TaskViewModel with ChangeNotifier {
       print('Error deleting task: $e');
     }
   }
+
+  Future<void> toggleTaskCompletion(int id, bool isCompleted) async {
+    try {
+      final task = _tasks.firstWhere((task) => task.id == id);
+      task.isCompleted = isCompleted;
+      await _taskRepository.updateTask(task);
+      await loadTasks();
+    } catch (e) {
+      print('Error toggling task completion: $e');
+    }
+  }
 }

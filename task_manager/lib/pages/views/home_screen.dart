@@ -30,38 +30,48 @@ class HomeScreen extends StatelessWidget {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: GlassmorphismCard(
-                    child: // Replace the existing ListTile in HomeScreen with this:
-ListTile(
-  title: Text(
-    task.title,
-    style: TextStyle(
-      color: Colors.white,
-      fontWeight: FontWeight.bold,
-      fontSize: 18,
-    ),
-  ),
-  subtitle: Text(
-    task.description,
-    style: TextStyle(
-      color: Colors.white70,
-      fontSize: 14,
-    ),
-    maxLines: 1,
-    overflow: TextOverflow.ellipsis,
-  ),
-  trailing: IconButton(
-    icon: Icon(Icons.delete, color: Colors.white),
-    onPressed: () => _showDeleteConfirmationDialog(context, viewModel, task.id),
-  ),
-  onTap: () {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => TaskDetailScreen(task: task),
-      ),
-    );
-  },
-),
+                    child: ListTile(
+                      leading: Checkbox(
+                        value: task.isCompleted ?? false,
+                        onChanged: (bool? value) {
+                          viewModel.toggleTaskCompletion(task.id, value ?? false);
+                        },
+                        activeColor: Colors.greenAccent,
+                        checkColor: Colors.white,
+                      ),
+                      title: Text(
+                        task.title,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                          decoration: task.isCompleted ?? false 
+                              ? TextDecoration.lineThrough 
+                              : TextDecoration.none,
+                        ),
+                      ),
+                      subtitle: Text(
+                        task.description,
+                        style: TextStyle(
+                          color: Colors.white70,
+                          fontSize: 14,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      trailing: IconButton(
+                        icon: Icon(Icons.delete, color: Colors.redAccent),
+                        onPressed: () => _showDeleteConfirmationDialog(context, viewModel, task.id),
+                      ),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => TaskDetailScreen(task: task),
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 );
               },
@@ -89,17 +99,44 @@ ListTile(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Delete Task'),
-          content: Text('Are you sure you want to delete this task?'),
+          backgroundColor: Colors.deepPurple.shade100,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          title: Text(
+            'Delete Task',
+            style: TextStyle(
+              color: Colors.deepPurple,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          content: Text(
+            'Are you sure you want to delete this task?',
+            style: TextStyle(
+              color: Colors.deepPurple.shade700,
+            ),
+          ),
           actions: <Widget>[
             TextButton(
-              child: Text('Cancel'),
+              child: Text(
+                'Cancel',
+                style: TextStyle(
+                  color: Colors.deepPurple,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
             TextButton(
-              child: Text('Delete'),
+              child: Text(
+                'Delete',
+                style: TextStyle(
+                  color: Colors.red,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               onPressed: () {
                 viewModel.deleteTask(taskId);
                 Navigator.of(context).pop();
