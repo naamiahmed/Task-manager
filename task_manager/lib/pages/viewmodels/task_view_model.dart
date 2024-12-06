@@ -7,7 +7,16 @@ class TaskViewModel with ChangeNotifier {
   List<Task> _tasks = [];
   List<Task> get tasks => _tasks;
 
-  void loadTasks() async {
+  TaskViewModel() {
+    loadTasks();
+  }
+
+  int getNextId() {
+    if (_tasks.isEmpty) return 1;
+    return _tasks.map((task) => task.id).reduce((max, id) => id > max ? id : max) + 1;
+  }
+
+  Future<void> loadTasks() async {
     try {
       _tasks = await _taskRepository.getTasks();
       notifyListeners();
@@ -16,28 +25,28 @@ class TaskViewModel with ChangeNotifier {
     }
   }
 
-  void addTask(Task task) async {
+  Future<void> addTask(Task task) async {
     try {
       await _taskRepository.insertTask(task);
-      loadTasks(); // Reload the tasks after adding
+      await loadTasks();
     } catch (e) {
       print('Error adding task: $e');
     }
   }
 
-  void updateTask(Task task) async {
+  Future<void> updateTask(Task task) async {
     try {
       await _taskRepository.updateTask(task);
-      loadTasks(); // Reload the tasks after updating
+      await loadTasks();
     } catch (e) {
       print('Error updating task: $e');
     }
   }
 
-  void deleteTask(int id) async {
+  Future<void> deleteTask(int id) async {
     try {
       await _taskRepository.deleteTask(id);
-      loadTasks(); // Reload the tasks after deleting
+      await loadTasks();
     } catch (e) {
       print('Error deleting task: $e');
     }

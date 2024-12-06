@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 
 class TaskForm extends StatefulWidget {
   final Task? task;
-
   TaskForm({this.task});
 
   @override
@@ -14,16 +13,23 @@ class TaskForm extends StatefulWidget {
 
 class _TaskFormState extends State<TaskForm> {
   final _formKey = GlobalKey<FormState>();
-  late String _title;
-  late String _description;
+  late TextEditingController _titleController;
+  late TextEditingController _descriptionController;
   late DateTime _date;
 
   @override
   void initState() {
     super.initState();
-    _title = widget.task?.title ?? '';
-    _description = widget.task?.description ?? '';
+    _titleController = TextEditingController(text: widget.task?.title ?? '');
+    _descriptionController = TextEditingController(text: widget.task?.description ?? '');
     _date = widget.task?.date ?? DateTime.now();
+  }
+
+  @override
+  void dispose() {
+    _titleController.dispose();
+    _descriptionController.dispose();
+    super.dispose();
   }
 
   Future<void> _selectDate(BuildContext context) async {
@@ -62,7 +68,7 @@ class _TaskFormState extends State<TaskForm> {
             child: Column(
               children: <Widget>[
                 TextFormField(
-                  initialValue: _title,
+                  controller: _titleController,
                   decoration: InputDecoration(
                     labelText: 'Title',
                     labelStyle: TextStyle(color: Colors.white),
@@ -84,13 +90,10 @@ class _TaskFormState extends State<TaskForm> {
                     }
                     return null;
                   },
-                  onSaved: (value) {
-                    _title = value!;
-                  },
                 ),
                 SizedBox(height: 20),
                 TextFormField(
-                  initialValue: _description,
+                  controller: _descriptionController,
                   decoration: InputDecoration(
                     labelText: 'Description',
                     labelStyle: TextStyle(color: Colors.white),
@@ -106,14 +109,12 @@ class _TaskFormState extends State<TaskForm> {
                     fillColor: Colors.white.withOpacity(0.1),
                   ),
                   style: TextStyle(color: Colors.white),
+                  maxLines: 3,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter a description';
                     }
                     return null;
-                  },
-                  onSaved: (value) {
-                    _description = value!;
                   },
                 ),
                 SizedBox(height: 20),
@@ -128,7 +129,8 @@ class _TaskFormState extends State<TaskForm> {
                       onPressed: () => _selectDate(context),
                       child: Text('Select date'),
                       style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.deepPurple, backgroundColor: Colors.white,
+                        foregroundColor: Colors.deepPurple,
+                        backgroundColor: Colors.white,
                       ),
                     ),
                   ],
@@ -137,30 +139,32 @@ class _TaskFormState extends State<TaskForm> {
                 ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      _formKey.currentState!.save();
+                      final taskViewModel = Provider.of<TaskViewModel>(context, listen: false);
                       final task = Task(
-                        id: widget.task?.id ?? 0,
-                        title: _title,
-                        description: _description,
+                        id: widget.task?.id ?? taskViewModel.getNextId(),
+                        title: _titleController.text,
+                        description: _descriptionController.text,
                         date: _date,
                       );
+                      
                       if (widget.task == null) {
-                        Provider.of<TaskViewModel>(context, listen: false).addTask(task);
+                        taskViewModel.addTask(task);
                       } else {
-                        Provider.of<TaskViewModel>(context, listen: false).updateTask(task);
+                        taskViewModel.updateTask(task);
                       }
                       Navigator.pop(context);
                     }
                   },
                   style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.deepPurple, backgroundColor: Colors.white,
+                    foregroundColor: Colors.deepPurple,
+                    backgroundColor: Colors.white,
                     padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
                     ),
                   ),
                   child: Text(
-                    widget.task == null ? 'Add' : 'Update',
+                    widget.task == null ? 'Add Task' : 'Update Task',
                     style: TextStyle(fontSize: 18),
                   ),
                 ),
