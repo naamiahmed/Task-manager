@@ -13,19 +13,6 @@ class TaskDetailScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(task.title),
         backgroundColor: Colors.deepPurple,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.edit),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => TaskForm(task: task),
-                ),
-              );
-            },
-          ),
-        ],
       ),
       body: Container(
         decoration: BoxDecoration(
@@ -40,20 +27,47 @@ class TaskDetailScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(
-                task.title,
-                style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
+              RichText(
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text: "Title: ",
+                      style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                    TextSpan(
+                      text: task.title,
+                      style: TextStyle(
+                        fontSize: 28,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
                 ),
               ),
               SizedBox(height: 20),
-              Text(
-                task.description,
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.white70,
+              RichText(
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text: "Description: ",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white70,
+                      ),
+                    ),
+                    TextSpan(
+                      text: task.description,
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.white70,
+                      ),
+                    ),
+                  ],
                 ),
               ),
               SizedBox(height: 20),
@@ -62,6 +76,25 @@ class TaskDetailScreen extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 16,
                   color: Colors.white70,
+                ),
+              ),
+              Spacer(),
+              Center(
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => TaskForm(task: task),
+                      ),
+                    );
+                  },
+                  child: Text('Update'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.deepPurple,
+                    padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                    textStyle: TextStyle(fontSize: 18),
+                  ),
                 ),
               ),
             ],
