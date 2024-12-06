@@ -51,16 +51,16 @@ class _TaskFormState extends State<TaskForm> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.task == null ? 'Add Task' : 'Edit Task'),
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: const Color.fromARGB(221, 97, 97, 97),
       ),
       body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Colors.deepPurple, Colors.purpleAccent],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-        ),
+ decoration: BoxDecoration(
+  gradient: LinearGradient(
+    colors: [Colors.black87, Colors.grey.shade800],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  ),
+),
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Form(
@@ -155,14 +155,14 @@ class _TaskFormState extends State<TaskForm> {
                       Navigator.pop(context);
                     }
                   },
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.deepPurple,
-                    backgroundColor: Colors.white,
-                    padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                  ),
+                   style: ElevatedButton.styleFrom(
+    foregroundColor: Colors.black87,
+    backgroundColor: Colors.white,
+    padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(30),
+    ),
+  ),
                   child: Text(
                     widget.task == null ? 'Add Task' : 'Update Task',
                     style: TextStyle(fontSize: 18),

@@ -12,16 +12,16 @@ class TaskDetailScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(task.title),
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: const Color.fromARGB(221, 97, 97, 97),
       ),
       body: Container(
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Colors.deepPurple, Colors.purpleAccent],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-        ),
+  gradient: LinearGradient(
+    colors: [Colors.black87, Colors.grey.shade800],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  ),
+),
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
@@ -90,11 +90,14 @@ class TaskDetailScreen extends StatelessWidget {
                     );
                   },
                   child: Text('Update'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.deepPurple,
-                    padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-                    textStyle: TextStyle(fontSize: 18),
-                  ),
+                 style: ElevatedButton.styleFrom(
+    foregroundColor: Colors.black87,
+    backgroundColor: Colors.white,
+    padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(30),
+    ),
+  ),
                 ),
               ),
             ],

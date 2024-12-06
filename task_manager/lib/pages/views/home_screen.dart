@@ -11,14 +11,15 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Task Manager'),
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: const Color.fromARGB(221, 97, 97, 97),
       ),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [Colors.deepPurple, Colors.purpleAccent],
+            colors: [Colors.black87, Colors.grey.shade800],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
+
           ),
         ),
         child: Consumer<TaskViewModel>(
@@ -32,12 +33,12 @@ class HomeScreen extends StatelessWidget {
                   child: GlassmorphismCard(
                     child: ListTile(
                       leading: Checkbox(
-                        value: task.isCompleted ?? false,
+                        value: task.isCompleted,
                         onChanged: (bool? value) {
                           viewModel.toggleTaskCompletion(task.id, value ?? false);
                         },
-                        activeColor: Colors.greenAccent,
-                        checkColor: Colors.white,
+                        activeColor: Colors.white,
+                        checkColor: Colors.black87,
                       ),
                       title: Text(
                         task.title,
@@ -45,22 +46,22 @@ class HomeScreen extends StatelessWidget {
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                           fontSize: 18,
-                          decoration: task.isCompleted ?? false 
-                              ? TextDecoration.lineThrough 
+                          decoration: task.isCompleted
+                              ? TextDecoration.lineThrough
                               : TextDecoration.none,
                         ),
                       ),
                       subtitle: Text(
                         task.description,
                         style: TextStyle(
-                          color: Colors.white70,
+                          color: Colors.grey.shade300,
                           fontSize: 14,
                         ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
                       trailing: IconButton(
-                        icon: Icon(Icons.delete, color: Colors.redAccent),
+                        icon: Icon(Icons.delete, color: Colors.white70),
                         onPressed: () => _showDeleteConfirmationDialog(context, viewModel, task.id),
                       ),
                       onTap: () {
@@ -88,8 +89,8 @@ class HomeScreen extends StatelessWidget {
             ),
           );
         },
-        child: Icon(Icons.add),
-        backgroundColor: Colors.deepPurple,
+        child: Icon(Icons.add, color: Colors.black87),
+        backgroundColor: Colors.white,
       ),
     );
   }
@@ -99,43 +100,31 @@ class HomeScreen extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          backgroundColor: Colors.deepPurple.shade100,
+          backgroundColor: Colors.grey.shade900,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
+            side: BorderSide(color: Colors.white24),
           ),
           title: Text(
             'Delete Task',
-            style: TextStyle(
-              color: Colors.deepPurple,
-              fontWeight: FontWeight.bold,
-            ),
+            style: TextStyle(color: Colors.white),
           ),
           content: Text(
             'Are you sure you want to delete this task?',
-            style: TextStyle(
-              color: Colors.deepPurple.shade700,
-            ),
+            style: TextStyle(color: Colors.grey.shade300),
           ),
           actions: <Widget>[
             TextButton(
               child: Text(
                 'Cancel',
-                style: TextStyle(
-                  color: Colors.deepPurple,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(color: Colors.white70),
               ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
+              onPressed: () => Navigator.of(context).pop(),
             ),
             TextButton(
               child: Text(
                 'Delete',
-                style: TextStyle(
-                  color: Colors.red,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(color: Colors.white),
               ),
               onPressed: () {
                 viewModel.deleteTask(taskId);
@@ -159,10 +148,10 @@ class GlassmorphismCard extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
-        color: Colors.white.withOpacity(0.1),
+        color: Colors.white.withOpacity(0.05),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.white.withOpacity(0.05),
             blurRadius: 10,
             spreadRadius: 5,
           ),
@@ -171,15 +160,15 @@ class GlassmorphismCard extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(15),
         child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+          filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
           child: Container(
             padding: const EdgeInsets.all(8.0),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
-              border: Border.all(color: Colors.white.withOpacity(0.2)),
+              border: Border.all(color: Colors.white.withOpacity(0.1)),
               gradient: LinearGradient(
                 colors: [
-                  Colors.white.withOpacity(0.2),
+                  Colors.white.withOpacity(0.1),
                   Colors.white.withOpacity(0.05),
                 ],
                 begin: Alignment.topLeft,
