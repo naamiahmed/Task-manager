@@ -1,4 +1,3 @@
-// lib/pages/repositories/task_repository.dart
 
 import 'package:sqflite/sqflite.dart';
 import '../models/task.dart';
@@ -16,7 +15,7 @@ class TaskRepository {
     String path = await getDatabasesPath() + 'tasks.db';
     return await openDatabase(
       path,
-      version: 3, // Increment version for new isCompleted column
+      version: 3, 
       onCreate: (db, version) async {
         await db.execute('''
           CREATE TABLE tasks(

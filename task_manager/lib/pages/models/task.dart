@@ -1,11 +1,10 @@
-// lib/pages/models/task.dart
 
 class Task {
   final int id;
   final String title;
   final String description;
   final DateTime date;
-  bool _isCompleted = false;  // private field with default value
+  bool _isCompleted = false; 
 
   Task({
     required this.id,
@@ -15,15 +14,12 @@ class Task {
     bool isCompleted = false,
   }) : _isCompleted = isCompleted;
 
-  // Getter with proper bool return type
   bool get isCompleted => _isCompleted;
 
-  // Setter with bool parameter
   set isCompleted(bool value) {
     _isCompleted = value;
   }
 
-  // If you need to convert to/from JSON
   Map<String, dynamic> toJson() {
     return {
       'id': id,
