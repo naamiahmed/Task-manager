@@ -72,7 +72,7 @@ class TaskDetailScreen extends StatelessWidget {
               ),
               SizedBox(height: 20),
               Text(
-                "Date: ${task.date.toLocal()}".split(' ')[0],
+                "Date: ${task.date.toLocal().toString().split(' ')[0]}",
                 style: TextStyle(
                   fontSize: 16,
                   color: Colors.white70,
