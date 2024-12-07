@@ -56,7 +56,7 @@ The app is built using the **MVVM** architecture:
 ## Technologies Used
 
 - **Framework**: Flutter
-- **State Management**: [Provider/Riverpod/Bloc]
+- **State Management**: Provider
 - **Database**: SQLite (via `sqflite` package)
 - **Language**: Dart
 
